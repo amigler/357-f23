@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-
-void read_ints(FILE *fp);
+#include "bseq.h"
 
 // read/write a sequence of integers from/to a file in binary format
 // command line arguments: integer max, file name
@@ -39,15 +35,4 @@ int main(int argc, char *argv[]) {
         
     return EXIT_SUCCESS;
 }
-
-void read_ints(FILE *fp) {
-    int oc = 0, i = 0;
-    while ((oc = fread(&i, sizeof(int), 1, fp)) == 1) {
-        printf("%d\n", i);
-    }
-
-    //char c = ' ';
-    //fread(&c, sizeof(char), 32, fp);  // read 32 bytes/chars into the variable c
-}
-
 
