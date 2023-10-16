@@ -3,22 +3,23 @@
 
 int main(int argc, char *argv[]) {
     struct s {
-        int i;
-        char c;
+        char c, c2;
     };
 
+    printf("sizeof(int) = %lu\n", sizeof(int));
+    printf("sizeof(char) = %lu\n", sizeof(char));
     printf("sizeof(struct s) = %lu\n", sizeof(struct s));
 
 
-    /*
-    union int_float_or_string {
+    union int_float_or_string_or_long {
         int ival;
         float fval;
         char *sval;
         long long ll;
+        char c;
     };
 
-    typedef union int_float_or_string var;
+    typedef union int_float_or_string_or_long var;
     
     var a,b,c;
 
@@ -26,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     printf("sizeof(var) = %lu\n", sizeof(var));
     printf("sizeof(vars) = %lu\n", sizeof(vars));
-    */
+
     
     return EXIT_SUCCESS;
 }
