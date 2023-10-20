@@ -17,12 +17,15 @@ int main() {
     while (scanf("%i", &n)) {
         void *tmp = realloc(array, (count + 1) * sizeof(int));
         printf("realloc() returned %p, size: %lu\n", tmp, (count + 1) * sizeof(int));
+        
         if (tmp == NULL) {
             // realloc failed
             printf("realloc() failed()\n");
+            /*
         } else if (tmp == array) {
             // realloc returned same space, array pointer can remain unchanged
             array[count++] = n;
+            */
         } else {
             // realloc returned different block of memory
             array = tmp;
