@@ -29,7 +29,7 @@ int main()
     return EXIT_SUCCESS;
 }
 
-// insert name at the head of the list
+// insert name at the end of the list
 struct list_element *list_append(struct list_element *head, char *name)
 {
     // create a new list element
