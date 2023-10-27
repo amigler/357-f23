@@ -40,7 +40,6 @@ struct list_element *list_append(struct list_element *head, char *name)
     printf("sizeof(struct list_element) = %lu\n", sizeof(struct list_element));
     printf("new_el = %p\n", new_el);
     printf("&new_el->name = %p\n", &new_el->name);
-    printf("&new_el->arr = %p\n", &new_el->arr);
     printf("&new_el->next = %p\n", &new_el->next);
     
     // add this new list element to the end
