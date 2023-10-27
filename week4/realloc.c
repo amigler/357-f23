@@ -7,6 +7,13 @@ int compare_int(const void* a, const void* b) {
     return (int_a > int_b) - (int_a < int_b);
 }
 
+int compare_str(const void* a, const void* b) {
+    char * str_a = * ( (char**) a );
+    int int_b = * ( (int*) b );
+    return (int_a > int_b) - (int_a < int_b);
+}
+
+
 int main() {
 
     int count = 0, n = 0;
