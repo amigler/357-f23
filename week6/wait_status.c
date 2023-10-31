@@ -30,6 +30,7 @@ int main(void) {
     if ((pid = fork()) < 0) {
         printf("fork error");
     } else if (pid == 0) {  /* child */
+        sleep(3);
         exit(7);
     }
 

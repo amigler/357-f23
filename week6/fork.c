@@ -5,8 +5,7 @@
 int globvar = 6; /* external variable in initialized data */
 char buf[] = "unbuffered write() to stdout\n";
 
-int  main(void)
- {
+int  main(void) {
      int var; /* automatic variable on the stack */
      pid_t pid;
      
@@ -18,8 +17,9 @@ int  main(void)
 
      printf("before fork");
      fflush(stdout);
-     
-     if ((pid = fork()) < 0) {
+
+     pid = fork();
+     if (pid < 0) {
          printf("fork error\n");
      } else if (pid == 0) { /* child */
          printf("(child) pid = %d\n", pid);
@@ -30,7 +30,8 @@ int  main(void)
          printf("(parent) pid = %d\n", pid);
          sleep(2);
      }
-     printf("pid = %ld, glob = %d, var = %d\n", (long) getpid(), globvar, var);
+     printf("pid = %ld, glob = %d (%p), var = %d (%p)\n",
+            (long) getpid(), globvar, &globvar, var, &var);
      
      exit(0);
  }
