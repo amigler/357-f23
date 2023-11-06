@@ -30,12 +30,15 @@ int main(void) {
     if ((pid = fork()) < 0) {
         printf("fork error");
     } else if (pid == 0) {  /* child */
-        sleep(3);
+        printf("in child, before sleep(20)\n");
+        sleep(20);
+        printf("in child, before exit()\n");
         exit(7);
     }
 
+    printf("in parent, before wait()\n");
     // in parent process, wait for child and print status
-    if (waitpid(-1, &status, 0) != pid) {   // equivalent to: if (wait(&status) != pid) {
+    if (waitpid(-1, &status, WUNTRACED) != pid) {   // equivalent to: if (wait(&status) != pid) {
         printf("wait error");
     }
     pr_exit(status);    

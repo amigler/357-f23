@@ -18,8 +18,8 @@ int main(void) {
     if (signal(SIGUSR2, sig_handler) == SIG_ERR) {
         printf("unable to register handler for SIGUSR2");
     }
-    
-    for ( ; ; )
+
+    for ( ; ; )  // forever
         pause();
 }
 
