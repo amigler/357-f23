@@ -30,7 +30,7 @@ void sig_handler(int signo) {
     
     if (signo == SIGTSTP) {
         printf("received SIGTSTP (%d)\n", signo);
-        signal(SIGTSTP, SIG_DFL);  // switch to default signal handler
-        kill(getpid(), SIGTSTP);  // re-send SIGSTP signal to this process
+        //signal(SIGTSTP, SIG_DFL);  // switch to default signal handler
+        //kill(getpid(), SIGTSTP);  // re-send SIGSTP signal to this process
     }
 }
