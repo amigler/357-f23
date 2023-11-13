@@ -15,6 +15,10 @@ int main(void) {
     // create a copy of stdout file descriptor (to restore later)
     fd = dup(STDOUT_FILENO);
 
+    sleep(40);
+
+    printf("before freopen()\n");
+    
     // open file "dup.log" and associate it with stdout stream
     // cause anything to be written to stdout to be sent to file "dup.log"
     freopen("dup.log", "w", stdout);
@@ -22,6 +26,8 @@ int main(void) {
     printf("calling f1()\n");
     f1();
 
+    sleep(40);
+    
     fflush(stdout);
 
     // restore stdout, clean up temporary copy

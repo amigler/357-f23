@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
             adj = strtol(argv[1], NULL, 10);
     }
     gettimeofday(&end, NULL);
-    end.tv_sec += 10;  // run for 10 seconds 
+    end.tv_sec += 30;  // run for 10 seconds 
 
     if ((pid = fork()) < 0) {
         printf("fork failed");
@@ -61,4 +61,7 @@ int main(int argc, char* argv[])
         }
         checktime(s);
     }
+
+    sleep(30);
+    
 }

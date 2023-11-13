@@ -18,11 +18,12 @@ int main(void) {
     } else if (pid > 0) {  /* parent */
         close(fd[0]); 
         write(fd[1], "hello from parent\n", 18);
-        sleep(1);
+        sleep(50);
     } else {              /* child */
         close(fd[1]);
         n = read(fd[0], line, MAXLINE);
         write(STDOUT_FILENO, line, n);
+        sleep(50);
     }
     exit(0);
 }
