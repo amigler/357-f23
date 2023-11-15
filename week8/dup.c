@@ -5,7 +5,7 @@
 int f1(void);
 
 // demonstrate dup() functions, redirect stdout to a file
-int main(void) {
+int notmain(void) {
     int    fd;
 
     printf("starting dup() example\n");

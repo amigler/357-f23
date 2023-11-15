@@ -3,12 +3,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-// emulate behavior of program 2>&1 > error.txt using dup2
+// emulate behavior of program 2>&1 > all_output.txt using dup2
 
 int main(void) {
 
     
-    int out_fd = open("error.txt", O_WRONLY | O_CREAT);
+    int out_fd = open("all_output.txt", O_WRONLY | O_CREAT);
 
     printf("out_fd = %d\n", out_fd);
 
@@ -25,9 +25,8 @@ int main(void) {
     
     fflush(stdout);
 
-    sleep(100); // see file descriptors in /proc/pid/fd 
+    sleep(1); // see file descriptors in /proc/pid/fd 
 
-    close(out_fd);
     
     return 0;
 }

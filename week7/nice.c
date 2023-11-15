@@ -62,6 +62,6 @@ int main(int argc, char* argv[])
         checktime(s);
     }
 
-    sleep(30);
+    sleep(60);
     
 }
