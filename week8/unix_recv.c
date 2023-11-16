@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
     char buf[num_to_recv + 1];
 
-    for (;;) {
+    for (;;) { // forever
         memset(buf, 0, sizeof(buf));
         int n = recv(fd, buf, num_to_recv, 0);
         if (n < 0) {
