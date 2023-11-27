@@ -21,7 +21,7 @@ int main(void) {
     }
     err = pthread_create(&tid2, NULL, thr_fn2, NULL);
     if (err != 0) {
-        ptinf("can’t create thread 2");
+        printf("can’t create thread 2");
     }
 
     err = pthread_join(tid1, &tret);
