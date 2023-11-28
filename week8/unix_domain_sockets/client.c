@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     int the_int = atoi(argv[2]);
     
     char *server_sock_name = argv[1];
-    char *client_sock_name = "tmp";
+    char *client_sock_name = "tmp";  // should be specific to this process (ie include PID)
     
     if((socket_fd = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0) {
         perror("client: socket");

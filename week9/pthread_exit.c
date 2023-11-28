@@ -29,8 +29,8 @@ int main(void) {
         printf("can’t join with thread 1");
     }
     printf("thread 1 exit code %ld\n", (long) tret);
-    err = pthread_join(tid2, &tret);
     
+    err = pthread_join(tid2, &tret);    
     if (err != 0) {
         printf("can’t join with thread 2");
     }
