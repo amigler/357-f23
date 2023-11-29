@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdio.h>
+
 struct foo {
     int f_count;
     pthread_mutex_t f_lock;
@@ -37,6 +39,7 @@ void foo_decr(struct foo *fp) {
     if (--fp->f_count == 0) { // last reference, deallocate object
         pthread_mutex_unlock(&fp->f_lock);
         pthread_mutex_destroy(&fp->f_lock);
+        printf("ref count is 0, freeing object\n");
         free(fp);
     } else {
         pthread_mutex_unlock(&fp->f_lock);
@@ -50,10 +53,26 @@ int main(void) {
 
 
     foo_incr(f);
-    foo_incr(f);
-    foo_incr(f);
+    printf("count: %d\n", f->f_count);
     
+    foo_incr(f);
+    printf("count: %d\n", f->f_count);
+    
+    foo_incr(f);
+    printf("count: %d\n", f->f_count);
 
+    foo_decr(f);
+    printf("count: %d\n", f->f_count);
+    
+    foo_decr(f);
+    printf("count: %d\n", f->f_count);
+    
+    foo_decr(f);
+    printf("count: %d\n", f->f_count);
+
+    foo_decr(f);
+    printf("count: %d\n", f->f_count);  // invalid reference to free'd heap memory
+    
     return 0;
 }
 
