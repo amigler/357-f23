@@ -56,6 +56,10 @@ int main(int argc, char *argv[])
         printf("incorrect size\n");
         return 1;
     }
+
+
+    sleep(60);
+
     
     address_length = sizeof(struct sockaddr_un);
     bytes_received = recvfrom(socket_fd, (char *) &integer_buffer, sizeof(int), 0,
