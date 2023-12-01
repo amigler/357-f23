@@ -1,6 +1,4 @@
 #include <arpa/inet.h>
-#include <getopt.h>
-#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,31 +6,44 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define MESG "Hello, TCP Server.\n"
+#define DEFAULT_BACKLOG 100
+#define MESG "Hello, TCP Client.\n"
 #define MAXLEN 1000
 
 int main(int argc, char *argv[]) {
-    int port, len;
-    int sock_fd;
-    struct sockaddr_in sa;
-    struct hostent *hostent;
-    const char *hostname;
-    char buff[MAXLEN+1];
-    port = 10000;
-    hostname = "localhost";
+    int mlen, sock_fd, newsock, port = 10000;
+    struct sockaddr_in sa, newsockinfo, peerinfo;
+    socklen_t len;
     
-    hostent = gethostbyname(hostname);
+    char localaddr[INET_ADDRSTRLEN], peeraddr[INET_ADDRSTRLEN], buff[MAXLEN+1];
+    
     sock_fd = socket(AF_INET, SOCK_STREAM, 0);
-    
     sa.sin_family = AF_INET;
-    sa.sin_port = htons(port); /* use our port */
-    sa.sin_addr.s_addr = *(uint32_t *) hostent->h_addr_list[0];
-    connect(sock_fd, (struct sockaddr *) &sa, sizeof(sa));
+    sa.sin_port = htons(port);
+    sa.sin_addr.s_addr = htonl(INADDR_ANY);
     
-    len = send(sock_fd, MESG, strlen(MESG), 0);
-    len = recv(sock_fd, buff, sizeof(buff), 0);
-    write(STDOUT_FILENO, buff, len);
+    bind(sock_fd, (struct sockaddr *) &sa, sizeof(sa));
+    
+    listen(sock_fd, DEFAULT_BACKLOG);
+    
+    len = sizeof(newsockinfo); 
+    newsock = accept(sock_fd, (struct sockaddr *) &peerinfo, &len);
+    
+    len = sizeof(newsockinfo);
+    getsockname(newsock, (struct sockaddr *) &newsockinfo, &len);
+    
+    inet_ntop(AF_INET, &newsockinfo.sin_addr.s_addr, localaddr, sizeof(localaddr));
+    inet_ntop(AF_INET, &peerinfo.sin_addr.s_addr, peeraddr, sizeof(peeraddr));
+    
+    printf("New Connection: %s:%d->%s:%d\n", peeraddr, ntohs(peerinfo.sin_port), localaddr, ntohs(newsockinfo.sin_port));
+    
+
+    mlen = recv(newsock, buff, sizeof(buff), 0);
+    write(STDOUT_FILENO,buff,mlen);
+    mlen = send(newsock, MESG, strlen(MESG), 0);
     
     shutdown(sock_fd, SHUT_RDWR);
+    shutdown(newsock, SHUT_RDWR);
+    
     return 0;
 }
